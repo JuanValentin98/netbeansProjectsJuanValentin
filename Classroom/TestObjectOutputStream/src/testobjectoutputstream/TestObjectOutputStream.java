@@ -5,9 +5,12 @@
  */
 package testobjectoutputstream;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.logging.Level;
@@ -40,6 +43,24 @@ public class TestObjectOutputStream {
             Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "There is a error of IO" + ex.getMessage());
+            Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream("Object.dat"));
+            
+            String name = input.readUTF();
+            double weight = input.readDouble();
+            Date date = (Date)input.readObject();
+            
+            
+            System.out.println("name  " + name+ " weight " + weight + "date " + date);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "There is an error of not found" + ex.getMessage());
+            Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "There is an error of IO" + ex.getMessage());
+            Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
